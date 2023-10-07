@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "563930452959",
+    "project_id": "cric11admin",
+    "storage_bucket": "cric11admin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:563930452959:android:e72abd55ecf017ce192a6a",
+        "android_client_info": {
+          "package_name": "com.seesea.cric_11_admin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcNL_pQ8DGsJ0K3w5iFNfpfUiKML1pwbg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
