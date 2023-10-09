@@ -74,9 +74,9 @@ class _LiveMatchWidgetState extends State<LiveMatchWidget> {
               height: 40,
               width: 70,
               decoration: BoxDecoration(
-                color: Colors.blue,
+                //color: Colors.blue,
                 image: DecorationImage(
-                  image: AssetImage(""),
+                  image: AssetImage('assets/images/flags/1.png'),
                 ),
               ),
             ),
@@ -88,9 +88,9 @@ class _LiveMatchWidgetState extends State<LiveMatchWidget> {
               height: 40,
               width: 70,
               decoration: BoxDecoration(
-                color: Colors.green,
+                //color: Colors.green,
                 image: DecorationImage(
-                  image: AssetImage(""),
+                  image: AssetImage('assets/images/flags/3.png'),
                 ),
               ),
             ),

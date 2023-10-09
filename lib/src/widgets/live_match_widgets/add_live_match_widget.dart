@@ -10,6 +10,9 @@ class AddLiveMatchWidget extends StatefulWidget {
 }
 
 class _AddLiveMatchWidgetState extends State<AddLiveMatchWidget> {
+
+  int indexx = 1;
+
   @override
   Widget build(BuildContext context) {
     return  Container(
@@ -24,7 +27,10 @@ class _AddLiveMatchWidgetState extends State<AddLiveMatchWidget> {
             other_team_over(),
             toss_status_text(),
             toss_status(),
+            flag_text(),
+            flag_image(),
             save_button(),
+
           ],
         ),
 
@@ -304,5 +310,53 @@ class _AddLiveMatchWidgetState extends State<AddLiveMatchWidget> {
       ),
     );
   }
+
+  Widget flag_text(){
+    return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            child : Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text("Flag : ", style: Theme.of(context).textTheme.subtitle2,),
+              ],
+            ),
+
+          );
+  }
+
+  Widget flag_image() {
+    return Container(
+      height: 60,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: 11,
+        itemBuilder: (context, index){
+          return GestureDetector(
+            onTap: (){
+              setState(() {
+                indexx = index;
+              });
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  color: indexx == index ? custom_blue : Colors.grey,
+                  width: 2,
+                ),
+              ),
+              width: 60,
+              margin: EdgeInsets.all(5),
+              child: Column(mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset('assets/images/flags/${index +2}.png'),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+}
 
 }

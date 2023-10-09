@@ -26,10 +26,12 @@ class _AddUpComingMatchState extends State<AddUpComingMatch> {
         ),
       ),
       body: SafeArea(
-        child: Column(
-          children: [
-            AddUpComingMatchWidget(),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              AddUpComingMatchWidget(),
+            ],
+          ),
         ),
       ),
     );

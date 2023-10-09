@@ -26,10 +26,12 @@ class _AddLiveMatchState extends State<AddLiveMatch> {
         ),
       ),
       body: SafeArea(
-        child: Column(
-          children: [
-            AddLiveMatchWidget(),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              AddLiveMatchWidget(),
+            ],
+          ),
         ),
       ),
     );
