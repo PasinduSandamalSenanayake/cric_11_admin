@@ -1,15 +1,41 @@
+import 'package:cric_11_admin/src/data/firebase_live.dart';
+import 'package:cric_11_admin/src/model/live_match_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../const/colors.dart';
 
 class UpdateLiveMatchWidget extends StatefulWidget {
-  const UpdateLiveMatchWidget({super.key});
+  LiveMatchNote _liveMatchNote;
+  UpdateLiveMatchWidget(this._liveMatchNote,{super.key});
 
   @override
   State<UpdateLiveMatchWidget> createState() => _UpdateLiveMatchWidgetState();
 }
 
 class _UpdateLiveMatchWidgetState extends State<UpdateLiveMatchWidget> {
+
+  TextEditingController? live;
+  TextEditingController? slScore;
+  TextEditingController? slOver;
+  TextEditingController? otScore;
+  TextEditingController? otOver;
+
+  FocusNode _focusNodeLive = FocusNode();
+  FocusNode _focusNodeSlScore = FocusNode();
+  FocusNode _focusNodeSlOver = FocusNode();
+  FocusNode _focusNodeOtScore = FocusNode();
+  FocusNode _focusNodeOtOver = FocusNode();
+
+  @override
+  void initState(){
+    super.initState();
+    live = TextEditingController(text: widget._liveMatchNote.liveStatus);
+    slScore = TextEditingController(text: widget._liveMatchNote.slScore);
+    slOver = TextEditingController(text: widget._liveMatchNote.slOver);
+    otScore = TextEditingController(text: widget._liveMatchNote.otScore);
+    otOver = TextEditingController(text: widget._liveMatchNote.otOver);
+  }
+
   @override
   Widget build(BuildContext context) {
     return  Container(
@@ -22,8 +48,6 @@ class _UpdateLiveMatchWidgetState extends State<UpdateLiveMatchWidget> {
             sl_over(),
             other_team_score(),
             other_team_over(),
-            toss_status_text(),
-            toss_status(),
             update_button(),
           ],
         ),
@@ -51,6 +75,8 @@ class _UpdateLiveMatchWidgetState extends State<UpdateLiveMatchWidget> {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: TextField(
+                controller: live,
+                focusNode: _focusNodeLive,
                 style: Theme.of(context).textTheme.subtitle2,
                 decoration: InputDecoration(
                   contentPadding:  EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -92,6 +118,8 @@ class _UpdateLiveMatchWidgetState extends State<UpdateLiveMatchWidget> {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: TextField(
+                controller: slScore,
+                focusNode: _focusNodeSlScore,
                 style: Theme.of(context).textTheme.subtitle2,
                 decoration: InputDecoration(
                   contentPadding:  EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -133,6 +161,8 @@ class _UpdateLiveMatchWidgetState extends State<UpdateLiveMatchWidget> {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: TextField(
+                controller: slOver,
+                focusNode: _focusNodeSlOver,
                 style: Theme.of(context).textTheme.subtitle2,
                 decoration: InputDecoration(
                   contentPadding:  EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -174,6 +204,8 @@ class _UpdateLiveMatchWidgetState extends State<UpdateLiveMatchWidget> {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: TextField(
+                controller: otScore,
+                focusNode: _focusNodeOtScore,
                 style: Theme.of(context).textTheme.subtitle2,
                 decoration: InputDecoration(
                   contentPadding:  EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -215,6 +247,8 @@ class _UpdateLiveMatchWidgetState extends State<UpdateLiveMatchWidget> {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: TextField(
+                controller: otOver,
+                focusNode: _focusNodeOtOver,
                 style: Theme.of(context).textTheme.subtitle2,
                 decoration: InputDecoration(
                   contentPadding:  EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -236,54 +270,6 @@ class _UpdateLiveMatchWidgetState extends State<UpdateLiveMatchWidget> {
     );
   }
 
-  Widget toss_status_text(){
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            child : Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text("Toss Status : ", style: Theme.of(context).textTheme.subtitle2,),
-              ],
-            ),
-
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget toss_status(){
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: TextField(
-          style: Theme.of(context).textTheme.subtitle2,
-          maxLines: 2,
-          decoration: InputDecoration(
-            contentPadding:  EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            hintText: 'Sri Lanka won the toss and elected to bat first',
-            hintStyle: Theme.of(context).textTheme.bodyText1,
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(
-                  color: custom_blue,
-                  width: 2.0
-              ),
-            ),
-          ),
-        ),
-      ),
-    );;
-  }
-
   Widget update_button(){
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -295,7 +281,10 @@ class _UpdateLiveMatchWidgetState extends State<UpdateLiveMatchWidget> {
           ),
           minimumSize: Size(200, 50),
         ),
-        onPressed: (){},
+        onPressed: (){
+          Firebase_Live_DataSource().updateLiveNote(widget._liveMatchNote.id,live!.text, slScore!.text, slOver!.text, otScore!.text, otOver!.text);
+          Navigator.pop(context);
+        },
         child: Text(
           'Update',
           style: Theme.of(context).textTheme.subtitle2,
@@ -303,4 +292,5 @@ class _UpdateLiveMatchWidgetState extends State<UpdateLiveMatchWidget> {
       ),
     );
   }
+
 }

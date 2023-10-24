@@ -1,9 +1,11 @@
+import 'package:cric_11_admin/src/model/live_match_model.dart';
 import 'package:flutter/material.dart';
 import '../../const/colors.dart';
 import '../../widgets/live_match_widgets/update_live_match_widget.dart';
 
 class UpdateLiveMatch extends StatefulWidget {
-  const UpdateLiveMatch({super.key});
+  LiveMatchNote liveMatchNote;
+  UpdateLiveMatch(this.liveMatchNote,{super.key});
 
   @override
   State<UpdateLiveMatch> createState() => _UpdateLiveMatchState();
@@ -25,10 +27,12 @@ class _UpdateLiveMatchState extends State<UpdateLiveMatch> {
         ),
       ),
       body: SafeArea(
-        child: Column(
-          children: [
-            UpdateLiveMatchWidget(),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              UpdateLiveMatchWidget(widget.liveMatchNote),
+            ],
+          ),
         ),
       ),
     );

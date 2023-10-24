@@ -2,7 +2,7 @@ import 'package:cric_11_admin/src/model/previous_match_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../const/colors.dart';
-import '../../data/firebase.dart';
+import '../../data/firebase_previous.dart';
 
 class EditPreviousMatchWidget extends StatefulWidget {
   PreviousMatchNote _previousMatchNote;

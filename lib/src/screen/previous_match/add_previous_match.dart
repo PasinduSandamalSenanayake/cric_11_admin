@@ -1,4 +1,4 @@
-import 'package:cric_11_admin/src/data/firebase.dart';
+import 'package:cric_11_admin/src/data/firebase_previous.dart';
 import 'package:cric_11_admin/src/model/previous_match_model.dart';
 import 'package:flutter/material.dart';
 
@@ -371,7 +371,7 @@ class _AddPreviousMatchState extends State<AddPreviousMatch> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(
-                    color: indexx == index ? custom_blue : Colors.grey,
+                    color: indexx == index + 2 ? custom_blue : Colors.grey,
                     width: 2,
                   ),
                 ),

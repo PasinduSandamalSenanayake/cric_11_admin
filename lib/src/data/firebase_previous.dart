@@ -80,4 +80,14 @@ class Firebase_Datasource{
   Stream<QuerySnapshot> streamPreviousNote(){
     return _firebase.collection('previous').snapshots();
   }
+
+  Future<bool> deletePreviousNote (String uuid) async {
+    try{
+      await _firebase.collection('previous').doc(uuid).delete();
+      return true;
+  }catch(e){
+    print('error deleting data $e');
+    return true;
+  }
+  }
 }

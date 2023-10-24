@@ -1,10 +1,12 @@
+import 'package:cric_11_admin/src/model/live_match_model.dart';
 import 'package:cric_11_admin/src/screen/live_match/update_live_match.dart';
 import 'package:flutter/material.dart';
 
 import '../../const/colors.dart';
 
 class LiveMatchWidget extends StatefulWidget {
-  const LiveMatchWidget({super.key});
+  LiveMatchNote _liveMatchNote;
+  LiveMatchWidget(this._liveMatchNote,{super.key});
 
   @override
   State<LiveMatchWidget> createState() => _LiveMatchWidgetState();
@@ -54,7 +56,7 @@ class _LiveMatchWidgetState extends State<LiveMatchWidget> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Text(
-              "Live",
+              widget._liveMatchNote.liveStatus,
               style: Theme.of(context).textTheme.bodyText1,
             ),
           ],
@@ -90,7 +92,7 @@ class _LiveMatchWidgetState extends State<LiveMatchWidget> {
               decoration: BoxDecoration(
                 //color: Colors.green,
                 image: DecorationImage(
-                  image: AssetImage('assets/images/flags/3.png'),
+                  image: AssetImage('assets/images/flags/${widget._liveMatchNote.flag}.png'),
                 ),
               ),
             ),
@@ -111,11 +113,11 @@ class _LiveMatchWidgetState extends State<LiveMatchWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "313/7",
+                  widget._liveMatchNote.slScore,
                   style: Theme.of(context).textTheme.bodyText2,
                 ),
                 Text(
-                  "(50)",
+                  widget._liveMatchNote.slOver,
                   style: Theme.of(context).textTheme.bodyText2,
                 ),
               ],
@@ -129,11 +131,11 @@ class _LiveMatchWidgetState extends State<LiveMatchWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "313/7",
+                  widget._liveMatchNote.otScore,
                   style: Theme.of(context).textTheme.bodyText2,
                 ),
                 Text(
-                  "(50)",
+                  widget._liveMatchNote.otOver,
                   style: Theme.of(context).textTheme.bodyText2,
                 ),
               ],
@@ -153,7 +155,7 @@ class _LiveMatchWidgetState extends State<LiveMatchWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "Sri Lanka won the toss and elected to bat first",
+              widget._liveMatchNote.tossStatus,
               style: Theme.of(context).textTheme.bodyText2,
             ),
           ],
@@ -180,7 +182,7 @@ class _LiveMatchWidgetState extends State<LiveMatchWidget> {
         onPressed: (){
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context)=>UpdateLiveMatch(),
+              builder: (context)=>UpdateLiveMatch(widget._liveMatchNote),
             ),
           );
         },

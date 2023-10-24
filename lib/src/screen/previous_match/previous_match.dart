@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cric_11_admin/src/data/firebase.dart';
+import 'package:cric_11_admin/src/data/firebase_previous.dart';
 import 'package:cric_11_admin/src/screen/previous_match/add_previous_match.dart';
 import 'package:cric_11_admin/src/widgets/previous_match_widgets/previous_match_widget.dart';
 import 'package:flutter/material.dart';
@@ -61,8 +61,14 @@ class _PreviousMatchState extends State<PreviousMatch> {
             return ListView.builder(
               itemBuilder: (context, index) {
                 final note = previousNoteList[index];
-                print('data 2');
-                return PreviousMatchWidget(note);
+                return Dismissible(
+                    key: UniqueKey(),
+                    onDismissed: (direction){
+                      Firebase_Datasource().deletePreviousNote(note.id);
+                    },
+                    child: PreviousMatchWidget(note),
+                );
+                //return PreviousMatchWidget(note);
               },
               itemCount: previousNoteList.length,
             );
