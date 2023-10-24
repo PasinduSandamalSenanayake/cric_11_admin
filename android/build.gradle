@@ -1,13 +1,21 @@
 buildscript {
-    ext.kotlin_version = '1.7.10'
+    ext.kotlin_version = '1.7.10' // 1.7.10
     repositories {
         google()
         mavenCentral()
     }
 
+    //apply plugin: 'com.google.gms.google-services' // new
+
+    //new
+//    ext{
+//        firebaseBoMVersion = '32.2.3'
+//    }
+
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.0'
+        classpath 'com.android.tools.build:gradle:7.3.0' // 7.3.0
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        //classpath 'com.google.gms:google-services:4.3.10' // new 4.3.10
     }
 }
 

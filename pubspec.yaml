@@ -16,8 +16,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^5.1.0
   firebase_core: ^2.16.0
-  cloud_firestore: ^4.9.1
+  cloud_firestore: ^4.9.2
   uuid: ^3.0.6
+#  google_play_services: ^20.0.0
 
 dev_dependencies:
   flutter_test:

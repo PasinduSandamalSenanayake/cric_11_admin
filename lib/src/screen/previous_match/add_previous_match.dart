@@ -1,4 +1,5 @@
 import 'package:cric_11_admin/src/data/firebase.dart';
+import 'package:cric_11_admin/src/model/previous_match_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../const/colors.dart';
@@ -11,6 +12,7 @@ class AddPreviousMatch extends StatefulWidget {
 }
 
 class _AddPreviousMatchState extends State<AddPreviousMatch> {
+
 
   final matchLeads = TextEditingController();
   final date = TextEditingController();
@@ -29,6 +31,8 @@ class _AddPreviousMatchState extends State<AddPreviousMatch> {
   FocusNode _focusNodeOTScore = FocusNode();
   FocusNode _focusNodeWinningTeam = FocusNode();
   FocusNode _focusNodeMOM = FocusNode();
+
+  int indexx = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +63,7 @@ class _AddPreviousMatchState extends State<AddPreviousMatch> {
               otherTeamDetails(),
               winnerDetails(),
               manOfTheMatch(),
+              countryFlag(),
               enterButton(),
             ],
           ),
@@ -336,7 +341,7 @@ class _AddPreviousMatchState extends State<AddPreviousMatch> {
           ),
           onPressed: (){
             Firebase_Datasource().addPreviousNote(matchLeads.text, date.text, sl.text, slScore.text,
-                winningTeam.text, otherTeam.text, otScore.text, mom.text);
+                winningTeam.text, otherTeam.text, otScore.text, mom.text, indexx);
             Navigator.pop(context);
           },
           child: Text(
@@ -346,4 +351,45 @@ class _AddPreviousMatchState extends State<AddPreviousMatch> {
       ),
     );
   }
+
+  Widget countryFlag() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: Container(
+        height: 60,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: 11,
+          itemBuilder: (context, index){
+            return GestureDetector(
+              onTap: (){
+                setState(() {
+                  indexx = index+2;
+                });
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: indexx == index ? custom_blue : Colors.grey,
+                    width: 2,
+                  ),
+                ),
+
+                width: 60,
+                margin: EdgeInsets.all(5),
+                child: Column(mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    //int ni = index + 2;
+                    Image.asset('assets/images/flags/${index +2}.png'),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+
 }

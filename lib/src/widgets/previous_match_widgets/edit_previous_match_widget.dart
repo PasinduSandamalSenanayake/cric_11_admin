@@ -1,15 +1,53 @@
+import 'package:cric_11_admin/src/model/previous_match_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../const/colors.dart';
+import '../../data/firebase.dart';
 
 class EditPreviousMatchWidget extends StatefulWidget {
-  const EditPreviousMatchWidget({super.key});
+  PreviousMatchNote _previousMatchNote;
+  EditPreviousMatchWidget(this._previousMatchNote,{super.key});
 
   @override
   State<EditPreviousMatchWidget> createState() => _EditPreviousMatchWidgetState();
 }
 
 class _EditPreviousMatchWidgetState extends State<EditPreviousMatchWidget> {
+
+  int indexx = 0;
+
+  TextEditingController? matchlead;
+  TextEditingController? date;
+  TextEditingController? sl;
+  TextEditingController? slScore;
+  TextEditingController? otherTeam;
+  TextEditingController? otScore;
+  TextEditingController? winningTeam;
+  TextEditingController? mom;
+
+  FocusNode _focusNodeMatchLead = FocusNode();
+  FocusNode _focusNodeDate = FocusNode();
+  FocusNode _focusNodeSL = FocusNode();
+  FocusNode _focusNodeSLScore = FocusNode();
+  FocusNode _focusNodeOtherTeam = FocusNode();
+  FocusNode _focusNodeOTScore = FocusNode();
+  FocusNode _focusNodeWinningTeam = FocusNode();
+  FocusNode _focusNodeMOM = FocusNode();
+
+  @override
+  void initState(){
+    super.initState();
+    matchlead = TextEditingController(text: widget._previousMatchNote.matchLeads);
+    date = TextEditingController(text: widget._previousMatchNote.date);
+    sl = TextEditingController(text: widget._previousMatchNote.sl);
+    slScore = TextEditingController(text: widget._previousMatchNote.slScore);
+    otherTeam = TextEditingController(text: widget._previousMatchNote.otherTeam);
+    otScore = TextEditingController(text: widget._previousMatchNote.otScore);
+    winningTeam = TextEditingController(text: widget._previousMatchNote.winningTeam);
+    mom = TextEditingController(text: widget._previousMatchNote.mom);
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,6 +59,7 @@ class _EditPreviousMatchWidgetState extends State<EditPreviousMatchWidget> {
           otherTeamDetails(),
           winnerDetails(),
           manOfTheMatch(),
+          countryFlag(),
           editButton(),
         ],
       ),
@@ -35,10 +74,8 @@ class _EditPreviousMatchWidgetState extends State<EditPreviousMatchWidget> {
           borderRadius: BorderRadius.circular(10),
         ),
         child: TextField(
-
-          // controller: matchLeads,
-          // focusNode: _focusNodeMatchLeads,
-
+          controller: matchlead,
+          focusNode: _focusNodeMatchLead,
           style: Theme.of(context).textTheme.subtitle2,
           decoration: InputDecoration(
             contentPadding:  EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -67,10 +104,8 @@ class _EditPreviousMatchWidgetState extends State<EditPreviousMatchWidget> {
           borderRadius: BorderRadius.circular(10),
         ),
         child: TextField(
-
-          // controller: date,
-          // focusNode: _focusNodeDate,
-
+          controller: date,
+          focusNode: _focusNodeDate,
           style: Theme.of(context).textTheme.subtitle2,
           decoration: InputDecoration(
             contentPadding:  EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -103,10 +138,8 @@ class _EditPreviousMatchWidgetState extends State<EditPreviousMatchWidget> {
               borderRadius: BorderRadius.circular(10),
             ),
             child: TextField(
-
-              // controller: sl,
-              // focusNode: _focusNodeSL,
-
+              controller: sl,
+              focusNode: _focusNodeSL,
               style: Theme.of(context).textTheme.subtitle2,
               decoration: InputDecoration(
                 contentPadding:  EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -130,10 +163,8 @@ class _EditPreviousMatchWidgetState extends State<EditPreviousMatchWidget> {
               borderRadius: BorderRadius.circular(10),
             ),
             child: TextField(
-
-              // controller: slScore,
-              // focusNode: _focusNodeSLScore,
-
+              controller: slScore,
+              focusNode: _focusNodeSLScore,
               style: Theme.of(context).textTheme.subtitle2,
               decoration: InputDecoration(
                 contentPadding:  EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -163,10 +194,8 @@ class _EditPreviousMatchWidgetState extends State<EditPreviousMatchWidget> {
           borderRadius: BorderRadius.circular(10),
         ),
         child: TextField(
-
-          // controller: winningTeam,
-          // focusNode: _focusNodeWinningTeam,
-
+          controller: winningTeam,
+          focusNode: _focusNodeWinningTeam,
           style: Theme.of(context).textTheme.subtitle2,
           decoration: InputDecoration(
             contentPadding:  EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -200,10 +229,8 @@ class _EditPreviousMatchWidgetState extends State<EditPreviousMatchWidget> {
               borderRadius: BorderRadius.circular(10),
             ),
             child: TextField(
-
-              // controller: otherTeam,
-              // focusNode: _focusNodeOtherTeam,
-
+              controller: otherTeam,
+              focusNode: _focusNodeOtherTeam,
               style: Theme.of(context).textTheme.subtitle2,
               decoration: InputDecoration(
                 contentPadding:  EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -227,9 +254,8 @@ class _EditPreviousMatchWidgetState extends State<EditPreviousMatchWidget> {
               borderRadius: BorderRadius.circular(10),
             ),
             child: TextField(
-
-              // controller: otScore,
-              // focusNode: _focusNodeOTScore,
+              controller: otScore,
+              focusNode: _focusNodeOTScore,
               style: Theme.of(context).textTheme.subtitle2,
               decoration: InputDecoration(
                 contentPadding:  EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -259,10 +285,8 @@ class _EditPreviousMatchWidgetState extends State<EditPreviousMatchWidget> {
           borderRadius: BorderRadius.circular(10),
         ),
         child: TextField(
-
-          // controller: mom,
-          // focusNode: _focusNodeMOM,
-
+          controller: mom,
+          focusNode: _focusNodeMOM,
           style: Theme.of(context).textTheme.subtitle2,
           decoration: InputDecoration(
             contentPadding:  EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -282,6 +306,46 @@ class _EditPreviousMatchWidgetState extends State<EditPreviousMatchWidget> {
     );
   }
 
+  Widget countryFlag() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: Container(
+        height: 60,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: 11,
+          itemBuilder: (context, index){
+            return GestureDetector(
+              onTap: (){
+                setState(() {
+                  indexx = index+2;
+                });
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: indexx == index + 2 ? custom_blue : Colors.grey,
+                    width: 2,
+                  ),
+                ),
+
+                width: 60,
+                margin: EdgeInsets.all(5),
+                child: Column(mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    //int ni = index + 2;
+                    Image.asset('assets/images/flags/${index +2}.png'),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+
   Widget editButton() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -294,8 +358,8 @@ class _EditPreviousMatchWidgetState extends State<EditPreviousMatchWidget> {
           minimumSize: Size(200, 50),
         ),
         onPressed: (){
-          // Firebase_Datasource().addPreviousNote(matchLeads.text, date.text, sl.text, slScore.text,
-          //     winningTeam.text, otherTeam.text, otScore.text, mom.text);
+          Firebase_Datasource().updatePreviousNote(widget._previousMatchNote.id, matchlead!.text, date!.text, sl!.text, slScore!.text,
+              winningTeam!.text, otherTeam!.text, otScore!.text, mom!.text, indexx);
           Navigator.pop(context);
         },
         child: Text(
@@ -305,4 +369,5 @@ class _EditPreviousMatchWidgetState extends State<EditPreviousMatchWidget> {
       ),
     );
   }
+
 }

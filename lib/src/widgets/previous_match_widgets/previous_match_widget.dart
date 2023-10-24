@@ -1,3 +1,4 @@
+import 'package:cric_11_admin/src/model/previous_match_model.dart';
 import 'package:cric_11_admin/src/widgets/previous_match_widgets/edit_previous_match_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -5,7 +6,8 @@ import '../../const/colors.dart';
 import '../../screen/previous_match/edit_previous_match.dart';
 
 class PreviousMatchWidget extends StatefulWidget {
-  const PreviousMatchWidget({super.key});
+  PreviousMatchNote previousMatchNote;
+  PreviousMatchWidget(this.previousMatchNote,{super.key});
 
   @override
   State<PreviousMatchWidget> createState() => _PreviousMatchWidgetState();
@@ -18,7 +20,7 @@ class _PreviousMatchWidgetState extends State<PreviousMatchWidget> {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Container(
         width: double.infinity,
-        height: 155,
+        height: 160,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
@@ -53,12 +55,20 @@ class _PreviousMatchWidgetState extends State<PreviousMatchWidget> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "ODI 1 of 3(SL leads 1-0)",
-              style: Theme.of(context).textTheme.bodyText2,
+              widget.previousMatchNote.matchLeads, //"ODI 1 of 3(SL leads 1-0)"
+              //style: Theme.of(context).textTheme.bodyText2,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 18,
+              ),
             ),
             Text(
-              "Thu,Sep 23",
-              style: Theme.of(context).textTheme.bodyText2,
+              widget.previousMatchNote.date, // "Thu,Sep 23"
+              //style: Theme.of(context).textTheme.bodyText2,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 18,
+              ),
             ),
           ],
         ),
@@ -84,7 +94,12 @@ class _PreviousMatchWidgetState extends State<PreviousMatchWidget> {
             ),
             SizedBox(width: 10,),
             Text(
-              "Sri Lanka",
+              widget.previousMatchNote.sl, // sri lanka name of the match
+              style: Theme.of(context).textTheme.subtitle2,
+            ),
+            SizedBox(width: 10,),
+            Text(
+              widget.previousMatchNote.slScore, // sri lanka score of the match
               style: Theme.of(context).textTheme.subtitle2,
             ),
           ],
@@ -105,13 +120,18 @@ class _PreviousMatchWidgetState extends State<PreviousMatchWidget> {
                 decoration: BoxDecoration(
                   //color: Colors.green,
                   image: DecorationImage(
-                    image: AssetImage('assets/images/flags/3.png'),
+                    image: AssetImage('assets/images/flags/${widget.previousMatchNote.flag}.png'),
                   ),
                 ),
               ),
               SizedBox(width: 10,),
               Text(
-                "India",
+                widget.previousMatchNote.otherTeam, // another country name
+                style: Theme.of(context).textTheme.subtitle2,
+              ),
+              SizedBox(width: 10,),
+              Text(
+                widget.previousMatchNote.otScore, // another country score
                 style: Theme.of(context).textTheme.subtitle2,
               ),
             ],
@@ -128,7 +148,7 @@ class _PreviousMatchWidgetState extends State<PreviousMatchWidget> {
           //mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Sri Lanka won by 3 wickets",
+              widget.previousMatchNote.winningTeam, // winning team
               style: Theme.of(context).textTheme.bodyText2,
             ),
             SizedBox(width: 70,),
@@ -143,7 +163,7 @@ class _PreviousMatchWidgetState extends State<PreviousMatchWidget> {
               onPressed: (){
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context)=>EditPreviousMatch(),
+                    builder: (context)=>EditPreviousMatch(widget.previousMatchNote),
                   ),
                 );
               },

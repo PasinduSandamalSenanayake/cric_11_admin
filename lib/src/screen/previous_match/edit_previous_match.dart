@@ -1,10 +1,12 @@
- import 'package:cric_11_admin/src/widgets/previous_match_widgets/edit_previous_match_widget.dart';
+ import 'package:cric_11_admin/src/model/previous_match_model.dart';
+import 'package:cric_11_admin/src/widgets/previous_match_widgets/edit_previous_match_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../const/colors.dart';
 
 class EditPreviousMatch extends StatefulWidget {
-  const EditPreviousMatch({super.key});
+  PreviousMatchNote previousMatchNote;
+  EditPreviousMatch(this.previousMatchNote,{super.key});
 
   @override
   State<EditPreviousMatch> createState() => _EditPreviousMatchState();
@@ -35,7 +37,7 @@ class _EditPreviousMatchState extends State<EditPreviousMatch> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              EditPreviousMatchWidget(),
+              EditPreviousMatchWidget(widget.previousMatchNote),
             ],
           ),
         ),
