@@ -1,10 +1,12 @@
+import 'package:cric_11_admin/src/model/upcoming_match_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../const/colors.dart';
 import '../../widgets/upcoming_match_widgets/edit_upcoming_match_widget.dart';
 
 class EditUpComingMatch extends StatefulWidget {
-  const EditUpComingMatch({super.key});
+  UpComingMatchNote upComingMatchNote;
+  EditUpComingMatch(this.upComingMatchNote,{super.key});
 
   @override
   State<EditUpComingMatch> createState() => _EditUpComingMatchState();
@@ -28,7 +30,7 @@ class _EditUpComingMatchState extends State<EditUpComingMatch> {
       body: SafeArea(
         child: Column(
           children: [
-            EditUpComingMatchWidget(),
+            EditUpComingMatchWidget(widget.upComingMatchNote),
           ],
         ),
       ),

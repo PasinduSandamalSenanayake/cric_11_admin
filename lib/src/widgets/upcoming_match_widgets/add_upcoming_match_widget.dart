@@ -1,3 +1,4 @@
+import 'package:cric_11_admin/src/data/firebase_upcoming.dart';
 import 'package:flutter/material.dart';
 
 import '../../const/colors.dart';
@@ -12,6 +13,20 @@ class AddUpComingMatchWidget extends StatefulWidget {
 class _AddUpComingMatchWidgetState extends State<AddUpComingMatchWidget> {
 
   int indexx = 0;
+
+  final matchStatus = TextEditingController();
+  final matchDate = TextEditingController();
+  final sriLanka = TextEditingController();
+  final ot = TextEditingController();
+  final startTime = TextEditingController();
+  final matchLocation = TextEditingController();
+
+  FocusNode _focusNodeMatchStatus = FocusNode();
+  FocusNode _focusNodeDate = FocusNode();
+  FocusNode _focusNodeSl = FocusNode();
+  FocusNode _focusNodeOtherTeam = FocusNode();
+  FocusNode _focusNodeTime = FocusNode();
+  FocusNode _focusNodeLocation = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +55,8 @@ class _AddUpComingMatchWidgetState extends State<AddUpComingMatchWidget> {
           borderRadius: BorderRadius.circular(10),
         ),
         child: TextField(
+          controller: matchStatus,
+          focusNode: _focusNodeMatchStatus,
           style: Theme.of(context).textTheme.bodyText1,
           decoration: InputDecoration(
             contentPadding:  EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -68,6 +85,8 @@ class _AddUpComingMatchWidgetState extends State<AddUpComingMatchWidget> {
           borderRadius: BorderRadius.circular(10),
         ),
         child: TextField(
+          controller: matchDate,
+          focusNode: _focusNodeDate,
           style: Theme.of(context).textTheme.bodyText1,
           decoration: InputDecoration(
             contentPadding:  EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -96,6 +115,8 @@ class _AddUpComingMatchWidgetState extends State<AddUpComingMatchWidget> {
           borderRadius: BorderRadius.circular(10),
         ),
         child: TextField(
+          controller: sriLanka,
+          focusNode: _focusNodeSl,
           style: Theme.of(context).textTheme.subtitle2,
           decoration: InputDecoration(
             contentPadding:  EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -124,6 +145,8 @@ class _AddUpComingMatchWidgetState extends State<AddUpComingMatchWidget> {
           borderRadius: BorderRadius.circular(10),
         ),
         child: TextField(
+          controller: ot,
+          focusNode: _focusNodeOtherTeam,
           style: Theme.of(context).textTheme.subtitle2,
           decoration: InputDecoration(
             contentPadding:  EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -152,6 +175,8 @@ class _AddUpComingMatchWidgetState extends State<AddUpComingMatchWidget> {
           borderRadius: BorderRadius.circular(10),
         ),
         child: TextField(
+          controller: startTime,
+          focusNode: _focusNodeTime,
           style: Theme.of(context).textTheme.bodyText1,
           decoration: InputDecoration(
             contentPadding:  EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -180,6 +205,8 @@ class _AddUpComingMatchWidgetState extends State<AddUpComingMatchWidget> {
           borderRadius: BorderRadius.circular(10),
         ),
         child: TextField(
+          controller: matchLocation,
+          focusNode: _focusNodeLocation,
           style: Theme.of(context).textTheme.bodyText1,
           decoration: InputDecoration(
             contentPadding:  EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -211,7 +238,8 @@ class _AddUpComingMatchWidgetState extends State<AddUpComingMatchWidget> {
           minimumSize: Size(200, 50),
         ),
         onPressed: (){
-
+            Firebase_Upcoming_DataSource().addUpcomingNote(matchStatus.text, matchDate.text, sriLanka.text, ot.text, startTime.text, matchLocation.text, indexx);
+            Navigator.pop(context);
         },
         child: Text(
           'Save',
@@ -233,14 +261,14 @@ class _AddUpComingMatchWidgetState extends State<AddUpComingMatchWidget> {
             return GestureDetector(
               onTap: (){
                 setState(() {
-                  indexx = index;
+                  indexx = index + 2;
                 });
               },
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(
-                    color: indexx == index ? custom_blue : Colors.grey,
+                    color: indexx == index + 2? custom_blue : Colors.grey,
                     width: 2,
                   ),
                 ),

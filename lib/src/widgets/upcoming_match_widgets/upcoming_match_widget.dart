@@ -1,10 +1,12 @@
+import 'package:cric_11_admin/src/model/upcoming_match_model.dart';
 import 'package:cric_11_admin/src/screen/up_coming_match/edit_up_coming_match.dart';
 import 'package:flutter/material.dart';
 
 import '../../const/colors.dart';
 
 class UpComingMatchWidget extends StatefulWidget {
-  const UpComingMatchWidget({super.key});
+  UpComingMatchNote upComingMatchNote;
+  UpComingMatchWidget(this.upComingMatchNote,{super.key});
 
   @override
   State<UpComingMatchWidget> createState() => _UpComingMatchWidgetState();
@@ -17,7 +19,7 @@ class _UpComingMatchWidgetState extends State<UpComingMatchWidget> {
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: Container(
           width: double.infinity,
-          height: 165,
+          height: 185,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(10),
@@ -37,7 +39,8 @@ class _UpComingMatchWidgetState extends State<UpComingMatchWidget> {
                 match_date(),
                 sl(),
                 otherCountry(),
-                time_location(),
+                time(),
+                location(),
               ],
             )
           ),
@@ -53,11 +56,11 @@ class _UpComingMatchWidgetState extends State<UpComingMatchWidget> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-                "ODI 1 of 3",
+                widget.upComingMatchNote.matchStatus,
                 style: Theme.of(context).textTheme.bodyText2,
             ),
             Text(
-              "Thu,Sep 23",
+              widget.upComingMatchNote.date,
               style: Theme.of(context).textTheme.bodyText2,
             ),
           ],
@@ -84,7 +87,7 @@ class _UpComingMatchWidgetState extends State<UpComingMatchWidget> {
             ),
             SizedBox(width: 10,),
             Text(
-                "Sri Lanka",
+                widget.upComingMatchNote.sl,
                 style: Theme.of(context).textTheme.subtitle2,
             ),
           ],
@@ -105,13 +108,13 @@ class _UpComingMatchWidgetState extends State<UpComingMatchWidget> {
                 decoration: BoxDecoration(
                   //color: Colors.green,
                   image: DecorationImage(
-                    image: AssetImage('assets/images/flags/3.png'),
+                    image: AssetImage('assets/images/flags/${widget.upComingMatchNote.flag}.png'),
                   ),
                 ),
               ),
               SizedBox(width: 10,),
               Text(
-                "India",
+                widget.upComingMatchNote.otherCountry,
                 style: Theme.of(context).textTheme.subtitle2,
               ),
             ],
@@ -120,46 +123,55 @@ class _UpComingMatchWidgetState extends State<UpComingMatchWidget> {
     );
   }
 
-  Widget time_location() {
+  Widget time() {
     return Container(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Row(
-          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Starts at 3:30 PM",
+              widget.upComingMatchNote.time,
               style: Theme.of(context).textTheme.bodyText2,
             ),
-            SizedBox(width: 10,),
-            Text(
-              "Location",
-              style: Theme.of(context).textTheme.bodyText2,
-            ),
-            SizedBox(width: 70,),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: custom_blue,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                minimumSize: Size(40, 10),
-              ),
-              onPressed: (){
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context)=>EditUpComingMatch(),
-                  ),
-                );
-              },
-              child: Text(
-                'Edit',
-                style: Theme.of(context).textTheme.bodyText1,
-              ),
-            ),
+
           ],
         ),
       ),
       );
+}
+
+  Widget location() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            widget.upComingMatchNote.location,
+            style: Theme.of(context).textTheme.bodyText2,
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: custom_blue,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5),
+              ),
+              minimumSize: Size(40, 10),
+            ),
+            onPressed: (){
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context)=>EditUpComingMatch(widget.upComingMatchNote),
+                ),
+              );
+            },
+            child: Text(
+              'Edit',
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
+          ),
+        ],
+      ),
+    );
 }
 }
